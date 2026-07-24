@@ -2,10 +2,6 @@
 
 Figmaプラグインの開発・公開用リポジトリです。各プラグインは独立したディレクトリに分けて管理しています。
 
-<p align="center">
-  <img src="./svg-link-exporter/assets/thumbnail-1920x1080.png" alt="SVG Link Exporterのサムネイル" width="800">
-</p>
-
 ## Plugins
 
 ### <img src="./svg-link-exporter/assets/icon-128.png" alt="" width="48" align="middle"> [SVG Link Exporter](./svg-link-exporter/)

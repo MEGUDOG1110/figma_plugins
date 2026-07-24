@@ -1,8 +1,8 @@
 # <img src="./assets/icon-128.png" alt="" width="56" align="middle"> SVG Link Exporter
 
-Figmaのレイヤー名と任意のベースURLからリンクを生成し、クリック領域を含むSVGを書き出すプラグインです。
-
 ![SVG Link Exporterのサムネイル](./assets/thumbnail-1920x1080.png)
+
+Figmaのレイヤー名と任意のベースURLからリンクを生成し、クリック領域を含むSVGを書き出すプラグインです。
 
 ## 使い方
 
