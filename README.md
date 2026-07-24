@@ -8,9 +8,7 @@ Figmaプラグインの開発・公開用リポジトリです。各プラグイ
 
 ## Plugins
 
-<img src="./svg-link-exporter/assets/icon-128.png" alt="SVG Link Exporterのアイコン" width="80">
-
-### [SVG Link Exporter](./svg-link-exporter/)
+### <img src="./svg-link-exporter/assets/icon-128.png" alt="" width="48" align="middle"> [SVG Link Exporter](./svg-link-exporter/)
 
 Figmaのレイヤー名と任意のベースURLからリンクを生成し、リンク付きSVGを一括で書き出すプラグインです。
 
