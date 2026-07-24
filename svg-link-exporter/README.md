@@ -1,6 +1,12 @@
 # SVG Link Exporter
 
+<p align="center">
+  <img src="./assets/icon-128.png" alt="SVG Link Exporterのアイコン" width="96">
+</p>
+
 Figmaのレイヤー名と任意のベースURLからリンクを生成し、クリック領域を含むSVGを書き出すプラグインです。
+
+![SVG Link Exporterのサムネイル](./assets/thumbnail-1920x1080.png)
 
 ## 使い方
 
