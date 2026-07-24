@@ -1,0 +1,61 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="40" x2="1800" y2="1040" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#351C75"/>
+      <stop offset="0.52" stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#1677D2"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="32" stdDeviation="38" flood-color="#160C45" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <circle cx="1650" cy="90" r="330" fill="white" fill-opacity="0.05"/>
+  <circle cx="150" cy="1040" r="430" fill="white" fill-opacity="0.04"/>
+
+  <image href="Icon_Frame.svg" x="150" y="142" width="116" height="116"/>
+
+  <text x="150" y="360" fill="white" font-family="Inter, Arial, sans-serif" font-size="66" font-weight="750">Clickable SVG Exporter</text>
+  <text x="150" y="435" fill="white" fill-opacity="0.82" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="30" font-weight="500">レイヤー名から、リンク付きSVGを簡単に書き出し</text>
+
+  <g font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="29" fill="white">
+    <circle cx="165" cy="560" r="8" fill="#A7F3D0"/>
+    <text x="195" y="570">任意のベースURLに対応</text>
+    <circle cx="165" cy="630" r="8" fill="#A7F3D0"/>
+    <text x="195" y="640">リンク対象と生成URLを一覧確認</text>
+    <circle cx="165" cy="700" r="8" fill="#A7F3D0"/>
+    <text x="195" y="710">複数フレームを一括エクスポート</text>
+  </g>
+
+  <g transform="translate(1055 120)" filter="url(#shadow)">
+    <rect width="700" height="840" rx="30" fill="#FFFFFF"/>
+    <rect x="0" y="0" width="700" height="74" rx="30" fill="#F5F5F5"/>
+    <circle cx="38" cy="37" r="8" fill="#FF6B6B"/>
+    <circle cx="65" cy="37" r="8" fill="#FFD166"/>
+    <circle cx="92" cy="37" r="8" fill="#5ED19A"/>
+
+    <text x="48" y="135" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">SVG Link Exporter</text>
+    <text x="48" y="178" fill="#737373" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="19">リンク付きSVGを書き出します。</text>
+
+    <rect x="48" y="216" width="604" height="146" rx="14" fill="#FAFAFA" stroke="#E5E5E5"/>
+    <text x="72" y="255" fill="#262626" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="18" font-weight="700">ベースURL</text>
+    <rect x="72" y="274" width="556" height="48" rx="8" fill="white" stroke="#D4D4D4"/>
+    <text x="90" y="305" fill="#525252" font-family="Inter, Arial, sans-serif" font-size="16">https://example.com/maps/</text>
+
+    <text x="48" y="416" fill="#262626" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="18" font-weight="700">検出したリンク対象</text>
+    <g transform="translate(48 440)">
+      <rect width="604" height="90" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+      <text x="22" y="36" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">link:detail-page</text>
+      <text x="22" y="65" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="15">https://example.com/maps/detail-page/</text>
+    </g>
+    <g transform="translate(48 544)">
+      <rect width="604" height="90" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+      <text x="22" y="36" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">link:area-guide</text>
+      <text x="22" y="65" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="15">https://example.com/maps/area-guide/</text>
+    </g>
+
+    <rect x="48" y="696" width="292" height="58" rx="10" fill="#5B45E0"/>
+    <text x="194" y="733" text-anchor="middle" fill="white" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="18" font-weight="700">SVGを書き出す</text>
+  </g>
+</svg>
