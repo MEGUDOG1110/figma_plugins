@@ -13,6 +13,8 @@ Figmaのレイヤー名と任意のベースURLからリンクを生成し、ク
 
 検出された対象は、プラグインUIのラジオボタンから「リンク」と「アンカー」を個別に切り替えられます。検出対象すべての一括切り替えにも対応しています。選択した種別はFigmaファイル内に保存されます。
 
+SVG全体の `aria-label` はプラグインUIからフレームごとに任意設定できます。SVGのネイティブなロールを維持するため、`role` 属性は追加しません。
+
 例えばベースURLを `https://www.example.com/onsen/` に設定した場合、`link:sample_onsen` は次のURLになります。
 
 `https://www.example.com/onsen/sample_onsen/`

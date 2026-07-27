@@ -1,11 +1,13 @@
 const BASE_URL_KEY = 'svg-link-base-url';
 const LINK_KIND_KEY = 'svg-link-kind';
+const SVG_LABEL_KEY = 'svg-aria-label';
 let savedBaseUrl = '';
 
 type PluginMessage =
   | { type: 'set-base-url'; url: string }
   | { type: 'set-link-kind'; nodeId: string; kind: LinkKind }
   | { type: 'set-all-link-kinds'; nodeIds: string[]; kind: LinkKind }
+  | { type: 'set-svg-label'; nodeIds: string[]; label: string }
   | { type: 'export-svg' }
   | { type: 'close' };
 
@@ -59,6 +61,7 @@ function sendSelectionState(): void {
     links,
     baseUrl,
     requiresBaseUrl,
+    svgLabels: selection.map((node) => ({ nodeId: node.id, label: node.getPluginData(SVG_LABEL_KEY) })),
   });
 }
 
@@ -184,6 +187,12 @@ function addLinksToSvg(svg: string, links: LinkRegion[]): string {
   return svg.replace(/<\/svg>\s*$/, `${markup}</svg>`);
 }
 
+function addSvgAccessibility(svg: string, label: string): string {
+  const trimmedLabel = label.trim();
+  if (!trimmedLabel) return svg;
+  return svg.replace(/<svg\b/, `<svg aria-label="${escapeXml(trimmedLabel)}"`);
+}
+
 async function exportSelection(): Promise<void> {
   const selection = selectedNodes();
   let requiresBaseUrl = false;
@@ -212,7 +221,10 @@ async function exportSelection(): Promise<void> {
     });
     files.push({
       name: safeFilename(node.name),
-      content: addLinksToSvg(svg, links),
+      content: addSvgAccessibility(
+        addLinksToSvg(svg, links),
+        node.getPluginData(SVG_LABEL_KEY),
+      ),
       linkCount: links.length,
     });
   }
@@ -243,6 +255,16 @@ figma.ui.onmessage = async (msg: PluginMessage) => {
 
   if (msg.type === 'set-all-link-kinds') {
     await Promise.all(msg.nodeIds.map((nodeId) => setLinkKind(nodeId, msg.kind)));
+    sendSelectionState();
+  }
+
+  if (msg.type === 'set-svg-label') {
+    const label = msg.label.trim();
+    await Promise.all(msg.nodeIds.map(async (nodeId) => {
+      const node = await figma.getNodeByIdAsync(nodeId);
+      if (!node || node.type === 'DOCUMENT' || node.type === 'PAGE') return;
+      node.setPluginData(SVG_LABEL_KEY, label);
+    }));
     sendSelectionState();
   }
 
