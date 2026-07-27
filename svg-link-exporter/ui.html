@@ -4,68 +4,125 @@
   <meta charset="utf-8">
   <title>SVG Link Exporter</title>
   <style>
-    :root { color-scheme: light dark; font: 12px/1.5 Inter, sans-serif; }
+    :root {
+      color-scheme: light dark;
+      font: 12px/1.5 Inter, sans-serif;
+      --brand-url: #132bdd;
+      --brand-anchor: #d118e5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --brand-url: #7182ff;
+        --brand-anchor: #ed72f7;
+      }
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 16px; color: var(--figma-color-text); background: var(--figma-color-bg); }
-    h1 { margin: 0 0 6px; font-size: 15px; }
-    p { margin: 0 0 14px; color: var(--figma-color-text-secondary); }
-    .panel { padding: 12px; margin-bottom: 12px; border: 1px solid var(--figma-color-border); border-radius: 6px; }
-    .label { display: block; margin-bottom: 6px; font-weight: 600; }
-    #selection { min-height: 36px; margin-bottom: 10px; }
-    #links { max-height: 190px; padding: 0; margin: 10px 0 0; overflow: auto; list-style: none; }
-    #links li { padding: 8px 0; border-top: 1px solid var(--figma-color-border); }
+    html, body { height: 100%; }
+    body { display: flex; flex-direction: column; margin: 0; color: var(--figma-color-text); background: var(--figma-color-bg); }
+    main { flex: 1; min-height: 0; padding: 16px; overflow-y: auto; }
+    section + section { margin-top: 20px; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .label { display: block; font-weight: 600; }
+    .meta, .helper, #selection, #status { color: var(--figma-color-text-secondary); }
+    .helper { margin: 6px 0 0; font-size: 11px; }
+    #selection { margin-top: 2px; font-size: 11px; }
+    #links { padding: 0; margin: 0; list-style: none; border-top: 1px solid var(--figma-color-border); }
+    #links li { padding: 12px 0; border-bottom: 1px solid var(--figma-color-border); }
     #links strong, #links small { display: block; overflow-wrap: anywhere; }
+    #links strong { font-size: 12px; font-weight: 600; }
     #links small { margin-top: 2px; color: var(--figma-color-text-secondary); }
-    .empty { color: var(--figma-color-text-secondary); }
-    input { width: 100%; height: 32px; padding: 0 8px; border: 1px solid var(--figma-color-border); border-radius: 4px; color: var(--figma-color-text); background: var(--figma-color-bg); }
-    input:focus { outline: 2px solid var(--figma-color-border-selected); outline-offset: -1px; }
-    .row { display: flex; gap: 8px; margin-top: 10px; }
+    .link-row { display: block; }
+    .link-info { position: relative; min-width: 0; margin-bottom: 6px; padding-left: 14px; }
+    .link-info::before { position: absolute; top: 6px; left: 1px; width: 6px; height: 6px; border-radius: 50%; content: ''; }
+    .kind-link .link-info::before { background: var(--brand-url); }
+    .kind-anchor .link-info::before { background: var(--brand-anchor); }
+    .kind-options { display: flex; flex: none; align-items: center; gap: 8px; }
+    .kind-options label { display: inline-flex; align-items: center; gap: 4px; padding: 2px; white-space: nowrap; cursor: pointer; font-size: 11px; }
+    .kind-options input { width: 12px; height: 12px; margin: 0; cursor: pointer; }
+    .kind-options input[value="link"] { accent-color: var(--brand-url); }
+    .kind-options input[value="anchor"] { accent-color: var(--brand-anchor); }
+    .bulk-options { display: flex; align-items: center; gap: 12px; }
+    .bulk-options > span { color: var(--figma-color-text-secondary); font-size: 11px; }
+    .empty { color: var(--figma-color-text-secondary); text-align: center; }
+    #base-url { width: 100%; height: 32px; padding: 0 8px; border: 1px solid var(--figma-color-border); border-radius: 4px; color: var(--figma-color-text); background: var(--figma-color-bg); }
+    #base-url:focus { outline: 2px solid var(--figma-color-border-selected); outline-offset: -1px; }
+    .naming-rule { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--figma-color-border); border-bottom: 1px solid var(--figma-color-border); }
+    code { padding: 2px 4px; border-radius: 3px; color: var(--figma-color-text); background: var(--figma-color-bg-secondary); font: 11px/16px Roboto Mono, monospace; }
+    footer { flex: none; padding: 12px 16px 16px; border-top: 1px solid var(--figma-color-border); background: var(--figma-color-bg); }
     button { height: 32px; padding: 0 12px; border: 0; border-radius: 4px; cursor: pointer; }
-    button.primary { color: var(--figma-color-text-onbrand); background: var(--figma-color-bg-brand); }
-    button.secondary { color: var(--figma-color-text); background: var(--figma-color-bg-secondary); }
+    button.primary { width: 100%; color: var(--figma-color-text-onbrand); background: var(--figma-color-bg-brand); font-weight: 500; }
     button:disabled { cursor: default; opacity: .45; }
-    #status { min-height: 18px; margin-top: 10px; color: var(--figma-color-text-secondary); }
+    #status { min-height: 18px; margin-bottom: 6px; font-size: 11px; text-align: center; }
   </style>
 </head>
 <body>
-  <h1>SVG Link Exporter</h1>
-  <p>レイヤー名からリンクを生成し、リンク付きSVGを書き出します。</p>
-
-  <section class="panel">
-    <label class="label" for="base-url">ベースURL</label>
-    <input id="base-url" type="url" placeholder="https://example.com/maps/">
-    <div class="row">
-      <button id="save-base-url" class="primary">ベースURLを保存</button>
-    </div>
-  </section>
-
-  <section class="panel">
-    <span class="label">レイヤー命名規則</span>
-    <p><code>link:detail-page</code></p>
-    <p>フレーム内のテキストがリンク名として使用されます。リンク対象外のレイヤーは名前を変更する必要がありません。</p>
-  </section>
-
-  <section class="panel">
-    <span class="label">SVG書き出し</span>
-    <div id="selection">フレームを選択してください</div>
-    <span class="label">検出したリンク対象</span>
-    <ul id="links"><li class="empty">リンク対象はありません</li></ul>
-    <p>書き出したいフレームを選択してください。複数選択にも対応します。</p>
-    <button id="export" class="primary">選択フレームを書き出す</button>
+  <main>
+    <section>
+      <div class="naming-rule">
+        <span class="meta">レイヤー命名規則</span>
+        <code>link:page_name</code>
+      </div>
+      <p class="helper">フレーム内の最初のテキストをリンク名に使用します。</p>
+    </section>
+    <section>
+      <div class="section-heading"><label class="label" for="base-url">ベースURL</label></div>
+      <input id="base-url" type="url" placeholder="https://example.com/maps/">
+      <p class="helper">通常リンクに使用。フォーカスを外すと保存されます。</p>
+    </section>
+    <section>
+      <div class="section-heading">
+        <div>
+          <span id="link-count" class="label">リンク対象 0</span>
+          <div id="selection">フレームを選択してください</div>
+        </div>
+        <div id="bulk-options" class="bulk-options" hidden>
+          <span>すべて</span>
+          <div class="kind-options">
+            <label><input type="radio" name="bulk-kind" value="link">URL</label>
+            <label><input type="radio" name="bulk-kind" value="anchor">アンカー</label>
+          </div>
+        </div>
+      </div>
+      <ul id="links"><li class="empty">リンク対象はありません</li></ul>
+    </section>
+  </main>
+  <footer>
     <div id="status"></div>
-  </section>
+    <button id="export" class="primary" disabled>フレームを選択してください</button>
+  </footer>
 
   <script>
     const selection = document.getElementById('selection');
+    const linkCount = document.getElementById('link-count');
     const links = document.getElementById('links');
+    const bulkOptions = document.getElementById('bulk-options');
     const baseUrl = document.getElementById('base-url');
-    const saveBaseUrl = document.getElementById('save-base-url');
     const exportButton = document.getElementById('export');
     const status = document.getElementById('status');
 
     const post = (message) => parent.postMessage({ pluginMessage: message }, '*');
+    let currentLinks = [];
+    let savedBaseUrl = '';
+    let canExport = false;
 
-    saveBaseUrl.onclick = () => post({ type: 'set-base-url', url: baseUrl.value });
+    bulkOptions.onchange = (event) => {
+      if (event.target.name !== 'bulk-kind') return;
+      post({
+        type: 'set-all-link-kinds',
+        nodeIds: currentLinks.map((link) => link.nodeId),
+        kind: event.target.value,
+      });
+    };
+
+    const saveBaseUrl = () => {
+      if (baseUrl.value.trim() !== savedBaseUrl) {
+        post({ type: 'set-base-url', url: baseUrl.value });
+      }
+    };
+    baseUrl.onblur = saveBaseUrl;
+    baseUrl.onkeydown = (event) => {
+      if (event.key === 'Enter') baseUrl.blur();
+    };
     exportButton.onclick = () => {
       exportButton.disabled = true;
       status.textContent = 'SVGを生成しています…';
@@ -77,11 +134,19 @@
       if (!message) return;
 
       if (message.type === 'selection-state') {
-        baseUrl.value = message.baseUrl;
+        currentLinks = message.links;
+        savedBaseUrl = message.baseUrl;
+        if (document.activeElement !== baseUrl) baseUrl.value = message.baseUrl;
+        linkCount.textContent = `リンク対象 ${message.links.length}`;
         selection.textContent = message.count
-          ? `${message.count}件を選択中／リンク対象 ${message.links.length}件`
+          ? `${message.count}フレームを選択中`
           : 'フレームを選択してください';
         links.replaceChildren();
+        bulkOptions.hidden = message.links.length === 0;
+        bulkOptions.querySelectorAll('input').forEach((input) => {
+          input.checked = message.links.length > 0
+            && message.links.every((link) => link.kind === input.value);
+        });
         if (message.links.length === 0) {
           const empty = document.createElement('li');
           empty.className = 'empty';
@@ -90,15 +155,42 @@
         } else {
           message.links.forEach((link) => {
             const item = document.createElement('li');
+            item.className = `link-row kind-${link.kind}`;
+            const info = document.createElement('div');
+            info.className = 'link-info';
             const name = document.createElement('strong');
             const generatedUrl = document.createElement('small');
-            name.textContent = link.frameName;
-            generatedUrl.textContent = message.baseUrl ? link.url : 'ベースURLが未設定です';
-            item.append(name, generatedUrl);
+            name.textContent = link.frameName.replace(/^(link|anchor):/, '');
+            generatedUrl.textContent = link.url.startsWith('#') || message.baseUrl
+              ? link.url
+              : 'ベースURLが未設定です';
+            info.append(name, generatedUrl);
+
+            const options = document.createElement('div');
+            options.className = 'kind-options';
+            ['link', 'anchor'].forEach((kind) => {
+              const label = document.createElement('label');
+              const radio = document.createElement('input');
+              radio.type = 'radio';
+              radio.name = `kind-${link.nodeId}`;
+              radio.value = kind;
+              radio.checked = link.kind === kind;
+              radio.setAttribute('aria-label', kind === 'link' ? '通常リンク' : 'ページ内アンカー');
+              radio.onchange = () => post({ type: 'set-link-kind', nodeId: link.nodeId, kind });
+              label.append(radio, kind === 'link' ? 'URL' : 'アンカー');
+              options.appendChild(label);
+            });
+            item.append(info, options);
             links.appendChild(item);
           });
         }
-        exportButton.disabled = message.count === 0 || !message.baseUrl;
+        const needsBaseUrl = message.requiresBaseUrl && !message.baseUrl;
+        canExport = message.count > 0 && !needsBaseUrl;
+        exportButton.disabled = !canExport;
+        exportButton.textContent = message.count
+          ? `選択した${message.count}フレームを書き出す`
+          : 'フレームを選択してください';
+        status.textContent = needsBaseUrl ? '通常リンクにはベースURLが必要です' : '';
       }
 
       if (message.type === 'export-result') {
@@ -114,7 +206,7 @@
         });
         const links = message.files.reduce((total, file) => total + file.linkCount, 0);
         status.textContent = `${message.files.length}ファイル、リンク${links}件を書き出しました。`;
-        exportButton.disabled = false;
+        exportButton.disabled = !canExport;
       }
     };
   </script>
