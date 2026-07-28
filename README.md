@@ -27,7 +27,7 @@ Figmaのレイヤー名と任意のベースURLからリンクを生成し、リ
 
 ```bash
 git clone https://github.com/MEGUDOG1110/figma_plugins.git
-cd figma_plugins/svg-link-exporter
+cd figma_plugins
 npm install
 npm run build
 ```
@@ -46,12 +46,12 @@ npm run watch
 
 ## Commands
 
-各プラグインのディレクトリ内で実行します。
+リポジトリのルートで実行します。
 
 | コマンド | 内容 |
 | --- | --- |
-| `npm run build` | TypeScriptをビルド |
-| `npm run watch` | ファイル変更を監視してビルド |
+| `npm run build` | 型チェックと本番ビルド |
+| `npm run dev` | ファイル変更を監視してビルド |
 | `npm run lint` | ESLintによるコード検査 |
 | `npm run lint:fix` | ESLintで修正可能な問題を自動修正 |
 
@@ -59,10 +59,15 @@ npm run watch
 
 ```text
 figma_plugins/
-├── README.md
+├── package.json
+├── config/
+│   ├── vite.plugin.ts
+│   └── vite.ui.ts
 └── svg-link-exporter/
     ├── manifest.json
-    ├── code.ts
-    ├── ui.html
+    ├── src/
+    │   ├── plugin/main.ts
+    │   └── ui/ui.html
+    ├── dist/
     └── assets/
 ```

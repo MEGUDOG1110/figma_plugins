@@ -1,0 +1,9 @@
+# Node
+node_modules/
+*.log
+*.log.*
+
+# Build outputs
+**/out/
+**/dist/
+**/code.js

@@ -36,9 +36,13 @@ Figmaのレイヤー名はリンク判定にだけ使用し、書き出したSVG
 ## 開発
 
 ```bash
+cd ..
 npm install
-npm run build
-npm run watch
+npm run dev
 ```
 
-Figmaデスクトップ版の `Plugins > Development` からこのプラグインを実行します。
+Viteと開発コマンドはリポジトリのルートで管理しています。`npm run dev` はFigma側とUI側を監視ビルドします。配布用ビルドは `npm run build` です。
+
+UIは `src/ui/ui.html`、`src/ui/main.ts`、`src/ui/styles.css` に分割し、ビルド時に `dist/ui.html` へひとつにまとめます。
+
+Figmaデスクトップ版の `Plugins > Development > Import plugin from manifest...` から、リポジトリ直下の `manifest.json` を読み込みます。
