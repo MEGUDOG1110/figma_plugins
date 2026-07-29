@@ -49,6 +49,8 @@ function getElement<T extends HTMLElement>(id: string): T {
 const selection = getElement<HTMLDivElement>('selection');
 const linkCount = getElement<HTMLSpanElement>('link-count');
 const links = getElement<HTMLUListElement>('links');
+const main = document.querySelector<HTMLElement>('main');
+if (!main) throw new Error('Missing UI element: main');
 const bulkOptions = getElement<HTMLFieldSetElement>('bulk-options');
 const baseUrl = getElement<HTMLInputElement>('base-url');
 const exportButton = getElement<HTMLButtonElement>('export');
@@ -231,6 +233,7 @@ function createLinkGroup(group: LinkGroup, configuredBaseUrl: string): HTMLLIEle
 
   const details = document.createElement('details');
   details.className = 'link-group-details';
+  details.dataset.nodeId = group.nodeId;
   details.open = true;
   const summary = document.createElement('summary');
   summary.className = 'link-group-summary';
@@ -332,6 +335,11 @@ window.onmessage = (event: MessageEvent<{ pluginMessage?: UiMessage }>) => {
   if (!message) return;
 
   if (message.type === 'selection-state') {
+    const previousScrollTop = main.scrollTop;
+    const groupOpenStates = new Map(
+      Array.from(links.querySelectorAll<HTMLDetailsElement>('.link-group-details[data-node-id]'))
+        .map((details) => [details.dataset.nodeId as string, details.open]),
+    );
     currentSelectionCount = message.count;
     currentLinks = message.groups.flatMap((group) => group.links);
     savedBaseUrl = message.baseUrl;
@@ -350,8 +358,16 @@ window.onmessage = (event: MessageEvent<{ pluginMessage?: UiMessage }>) => {
     if (message.groups.length === 0) {
       renderEmptyLinks();
     } else {
-      message.groups.forEach((group) => links.appendChild(createLinkGroup(group, message.baseUrl)));
+      message.groups.forEach((group) => {
+        const groupItem = createLinkGroup(group, message.baseUrl);
+        const details = groupItem.querySelector<HTMLDetailsElement>('.link-group-details');
+        const previousOpenState = groupOpenStates.get(group.nodeId);
+        if (details && previousOpenState !== undefined) details.open = previousOpenState;
+        links.appendChild(groupItem);
+      });
     }
+    main.scrollTop = previousScrollTop;
+    requestAnimationFrame(() => { main.scrollTop = previousScrollTop; });
     const needsBaseUrl = message.requiresBaseUrl && !message.baseUrl;
     canExport = message.count > 0 && !needsBaseUrl;
     exportButton.disabled = !canExport;
