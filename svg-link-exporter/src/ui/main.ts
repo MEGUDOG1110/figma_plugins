@@ -166,7 +166,7 @@ function createKindOptions(
     radio.onchange = () => onChange(kind);
 
     const text = document.createElement('span');
-    text.textContent = kind === 'link' ? 'URL' : 'ページ内';
+    text.textContent = kind === 'link' ? 'URL' : 'アンカー';
     label.append(radio, text);
     options.appendChild(label);
   });
