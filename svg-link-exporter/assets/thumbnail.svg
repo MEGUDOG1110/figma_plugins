@@ -5,13 +5,13 @@
       <stop offset="0.52" stop-color="#4024D7"/>
       <stop offset="1" stop-color="#132BDD"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="30" stdDeviation="36" flood-color="#160C45" flood-opacity="0.38"/>
-    </filter>
     <linearGradient id="icon-bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
       <stop stop-color="#D118E5"/>
       <stop offset="0.75" stop-color="#132BDD"/>
     </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="30" stdDeviation="36" flood-color="#160C45" flood-opacity="0.38"/>
+    </filter>
     <symbol id="app-icon" viewBox="0 0 128 128">
       <rect width="128" height="128" rx="18" fill="url(#icon-bg)"/>
       <path transform="translate(0 -2)" d="M90.1268 40.2941H84.3032C82.7587 40.2941 81.2775 40.9077 80.1854 41.9998C79.0933 43.0919 78.4797 44.5731 78.4797 46.1176V57.7647C78.4797 59.3092 79.0933 60.7904 80.1854 61.8826C81.2775 62.9747 82.7587 63.5882 84.3032 63.5882H90.1268V51.9412H87.215M49.3621 40.2941H40.6268C39.8545 40.2941 39.1139 40.6009 38.5678 41.1469C38.0218 41.693 37.715 42.4336 37.715 43.2059V49.0294C37.715 49.8017 38.0218 50.5423 38.5678 51.0883C39.1139 51.6344 39.8545 51.9412 40.6268 51.9412H46.4503C47.2225 51.9412 47.9632 52.2479 48.5092 52.794C49.0553 53.3401 49.3621 54.0807 49.3621 54.8529V60.6765C49.3621 61.4487 49.0553 62.1893 48.5092 62.7354C47.9632 63.2815 47.2225 63.5882 46.4503 63.5882H37.715M58.0974 40.2941L62.465 63.5882H65.3768L69.7444 40.2941" stroke="white" stroke-width="5.82353" stroke-linecap="round" stroke-linejoin="round"/>
@@ -22,99 +22,104 @@
   <rect width="1920" height="1080" fill="url(#bg)"/>
   <circle cx="1740" cy="30" r="390" fill="white" fill-opacity="0.045"/>
   <circle cx="80" cy="1110" r="460" fill="#D118E5" fill-opacity="0.08"/>
-  <path d="M780 0L1920 0L1920 1080L1380 1080Z" fill="white" fill-opacity="0.025"/>
+  <path d="M760 0H1920V1080H1360Z" fill="white" fill-opacity="0.025"/>
 
-  <use href="#app-icon" x="144" y="126" width="112" height="112"/>
-  <text x="144" y="344" fill="white" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="750">SVG Link Exporter</text>
-  <text x="144" y="421" fill="white" fill-opacity="0.82" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="30" font-weight="500">URLもアンカーも、ひとつの命名規則から。</text>
+  <use href="#app-icon" x="132" y="118" width="112" height="112"/>
+  <text x="132" y="342" fill="white" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="750">SVG Link Exporter</text>
+  <text x="132" y="420" fill="white" fill-opacity="0.84" font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="30" font-weight="500">複数フレームを整理して、リンク付きSVGへ。</text>
 
-  <g font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="27" fill="white">
-    <g transform="translate(144 520)">
-      <rect width="510" height="58" rx="29" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.12"/>
+  <g font-family="Noto Sans JP, Hiragino Sans, sans-serif" font-size="26" fill="white">
+    <g transform="translate(132 510)">
+      <rect width="520" height="58" rx="29" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.14"/>
       <rect x="16" y="11" width="36" height="36" rx="9" fill="white" fill-opacity="0.16"/>
       <text x="34" y="35" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="16">&lt;/&gt;</text>
       <text x="68" y="38">命名規則は <tspan font-family="Roboto Mono, monospace" font-weight="700">link:page_name</tspan> だけ</text>
     </g>
-    <circle cx="158" cy="644" r="7" fill="#ED72F7"/>
-    <text x="184" y="654">URL／アンカーを個別・一括で切り替え</text>
-    <circle cx="158" cy="712" r="7" fill="#7182FF"/>
-    <text x="184" y="722">生成先を確認して、そのままSVG書き出し</text>
-    <circle cx="158" cy="780" r="7" fill="#A7F3D0"/>
-    <text x="184" y="790">複数フレームの一括エクスポートに対応</text>
+    <circle cx="146" cy="640" r="7" fill="#ED72F7"/>
+    <text x="172" y="650">フレームごとにリンクとSVG説明を管理</text>
+    <circle cx="146" cy="710" r="7" fill="#7182FF"/>
+    <text x="172" y="720">URL／アンカーを個別・一括で切り替え</text>
+    <circle cx="146" cy="780" r="7" fill="#A7F3D0"/>
+    <text x="172" y="790">複数SVGはひとつのZIPでまとめて保存</text>
   </g>
 
-  <g transform="translate(1078 84)" filter="url(#shadow)">
-    <rect width="670" height="912" rx="28" fill="#FFFFFF"/>
+  <g transform="translate(1032 76)" filter="url(#shadow)">
+    <rect width="730" height="928" rx="26" fill="#FFFFFF"/>
 
-    <g transform="translate(0 0)">
-      <path d="M28 0H642A28 28 0 0 1 670 28V78H0V28A28 28 0 0 1 28 0Z" fill="#FFFFFF"/>
-      <line y1="78" x2="670" y2="78" stroke="#E5E5E5"/>
-      <use href="#app-icon" x="28" y="23" width="34" height="34"/>
-      <text x="78" y="50" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">SVG Link Exporter</text>
-    </g>
+    <g font-family="Noto Sans JP, Hiragino Sans, sans-serif">
+      <text x="30" y="43" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700">SVG Link Exporter</text>
+      <rect x="626" y="16" width="74" height="28" rx="14" fill="#E5F4FF"/>
+      <text x="663" y="35" text-anchor="middle" fill="#007BE5" font-size="12" font-weight="700">2フレーム</text>
+      <line y1="60" x2="730" y2="60" stroke="#E5E5E5"/>
 
-    <g transform="translate(34 108)" font-family="Noto Sans JP, Hiragino Sans, sans-serif">
-      <line y1="-12" x2="602" y2="-12" stroke="#E5E5E5"/>
-      <text y="20" fill="#737373" font-size="15">レイヤー命名規則</text>
-      <rect x="430" y="-4" width="172" height="32" rx="6" fill="#F2F2F2"/>
-      <text x="516" y="18" text-anchor="middle" fill="#262626" font-family="Roboto Mono, monospace" font-size="15" font-weight="600">link:page_name</text>
-      <line y1="42" x2="602" y2="42" stroke="#E5E5E5"/>
-      <text y="68" fill="#A3A3A3" font-size="13">フレーム内の最初のテキストをリンク名に使用します。</text>
-    </g>
+      <text x="30" y="98" fill="#262626" font-size="16" font-weight="700">書き出し設定</text>
+      <rect x="30" y="116" width="670" height="112" rx="7" fill="white" stroke="#D4D4D4"/>
+      <text x="46" y="144" fill="#262626" font-size="14" font-weight="700">ベースURL</text>
+      <text x="684" y="144" text-anchor="end" fill="#888888" font-size="12">通常リンク用</text>
+      <rect x="46" y="158" width="638" height="38" rx="6" fill="white" stroke="#B8B8B8"/>
+      <text x="58" y="182" fill="#525252" font-family="Inter, Arial, sans-serif" font-size="13">https://example.com/maps/</text>
+      <text x="46" y="216" fill="#8A8A8A" font-size="11">フォーカスを外すと、この端末に保存されます。</text>
 
-    <g transform="translate(34 214)" font-family="Noto Sans JP, Hiragino Sans, sans-serif">
-      <text y="20" fill="#262626" font-size="17" font-weight="700">ベースURL</text>
-      <rect y="36" width="602" height="46" rx="7" fill="white" stroke="#D4D4D4"/>
-      <text x="14" y="65" fill="#525252" font-family="Inter, Arial, sans-serif" font-size="15">https://example.com/maps/</text>
-      <text y="103" fill="#A3A3A3" font-size="13">通常リンクに使用。フォーカスを外すと保存されます。</text>
-    </g>
+      <text x="38" y="260" fill="#737373" font-size="12">レイヤーの命名規則</text>
+      <rect x="548" y="241" width="152" height="28" rx="5" fill="#F2F2F2"/>
+      <text x="624" y="260" text-anchor="middle" fill="#262626" font-family="Roboto Mono, monospace" font-size="12" font-weight="600">link:page_name</text>
+      <line x1="30" y1="276" x2="700" y2="276" stroke="#E5E5E5"/>
+      <text x="38" y="296" fill="#999999" font-size="11">フレーム内で最初に見つかったテキストをリンク名に使用します。</text>
 
-    <g transform="translate(34 354)" font-family="Noto Sans JP, Hiragino Sans, sans-serif">
-      <text y="20" fill="#262626" font-size="17" font-weight="700">SVGのaria-label <tspan fill="#737373" font-weight="400">（任意）</tspan></text>
-      <rect y="36" width="602" height="46" rx="7" fill="white" stroke="#D4D4D4"/>
-      <text x="14" y="65" fill="#525252" font-size="15">フロアマップ</text>
-      <text y="103" fill="#A3A3A3" font-size="13">SVG全体のアクセシブルな名前を設定します。</text>
-    </g>
+      <text x="30" y="344" fill="#262626" font-size="16" font-weight="700">フレーム別のリンク</text>
+      <rect x="178" y="326" width="25" height="25" rx="12.5" fill="#E5F4FF"/>
+      <text x="190.5" y="343" text-anchor="middle" fill="#007BE5" font-size="11" font-weight="700">4</text>
+      <text x="490" y="342" fill="#888888" font-size="11">すべて</text>
+      <rect x="535" y="326" width="74" height="26" rx="6" fill="#F3F3F3"/>
+      <text x="572" y="343" text-anchor="middle" fill="#132BDD" font-size="11" font-weight="700">URL</text>
+      <rect x="612" y="326" width="88" height="26" rx="6" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="656" y="343" text-anchor="middle" fill="#737373" font-size="11">ページ内</text>
 
-    <g transform="translate(34 484)" font-family="Noto Sans JP, Hiragino Sans, sans-serif">
-      <text y="20" fill="#262626" font-size="17" font-weight="700">リンク対象 2</text>
-      <text y="42" fill="#A3A3A3" font-size="13">1フレームを選択中</text>
-      <text x="350" y="28" fill="#737373" font-size="13">すべて</text>
-      <circle cx="414" cy="23" r="7" fill="white" stroke="#A3A3A3" stroke-width="1.5"/>
-      <text x="428" y="28" fill="#525252" font-size="13">URL</text>
-      <circle cx="480" cy="23" r="7" fill="white" stroke="#A3A3A3" stroke-width="1.5"/>
-      <text x="494" y="28" fill="#525252" font-size="13">アンカー</text>
+      <rect x="30" y="364" width="670" height="328" rx="7" fill="#FFFFFF" stroke="#D4D4D4"/>
+      <rect x="30.5" y="364.5" width="669" height="48" rx="6.5" fill="#F5F5F5"/>
+      <text x="46" y="394" fill="#262626" font-size="13" font-weight="700">トップページ</text>
+      <text x="192" y="394" fill="#737373" font-size="11">トップページの案内リンク</text>
+      <text x="658" y="394" text-anchor="end" fill="#737373" font-size="11">2件</text>
+      <text x="681" y="394" fill="#737373" font-size="18">⌄</text>
 
-      <line y1="60" x2="602" y2="60" stroke="#E5E5E5"/>
-      <g transform="translate(0 80)">
-        <circle cx="4" cy="4" r="4" fill="#132BDD"/>
-        <text x="18" y="9" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">page_name</text>
-        <text x="18" y="33" fill="#737373" font-family="Inter, Arial, sans-serif" font-size="13">https://example.com/maps/page_name/</text>
-        <circle cx="20" cy="58" r="7" fill="white" stroke="#132BDD" stroke-width="2"/>
-        <circle cx="20" cy="58" r="3.5" fill="#132BDD"/>
-        <text x="33" y="63" fill="#525252" font-size="13">URL</text>
-        <circle cx="88" cy="58" r="7" fill="white" stroke="#A3A3A3" stroke-width="1.5"/>
-        <text x="101" y="63" fill="#525252" font-size="13">アンカー</text>
-      </g>
+      <rect x="46" y="426" width="638" height="34" rx="5" fill="#FFFFFF" stroke="#B8B8B8"/>
+      <text x="58" y="448" fill="#525252" font-size="12">トップページの案内リンク</text>
 
-      <line y1="168" x2="602" y2="168" stroke="#E5E5E5"/>
-      <g transform="translate(0 188)">
-        <circle cx="4" cy="4" r="4" fill="#D118E5"/>
-        <text x="18" y="9" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">access</text>
-        <text x="18" y="33" fill="#737373" font-family="Inter, Arial, sans-serif" font-size="13">#access</text>
-        <circle cx="20" cy="58" r="7" fill="white" stroke="#A3A3A3" stroke-width="1.5"/>
-        <text x="33" y="63" fill="#525252" font-size="13">URL</text>
-        <circle cx="88" cy="58" r="7" fill="white" stroke="#D118E5" stroke-width="2"/>
-        <circle cx="88" cy="58" r="3.5" fill="#D118E5"/>
-        <text x="101" y="63" fill="#525252" font-size="13">アンカー</text>
-      </g>
-      <line y1="276" x2="602" y2="276" stroke="#E5E5E5"/>
-    </g>
+      <text x="46" y="490" fill="#737373" font-size="11">すべて</text>
+      <circle cx="101" cy="486" r="7" fill="white" stroke="#132BDD" stroke-width="1.5"/>
+      <circle cx="101" cy="486" r="3.5" fill="#132BDD"/>
+      <text x="114" y="490" fill="#525252" font-size="11">URL</text>
+      <circle cx="166" cy="486" r="7" fill="white" stroke="#D118E5" stroke-width="1.5"/>
+      <text x="179" y="490" fill="#525252" font-size="11">アンカー</text>
+      <line x1="30" y1="508" x2="700" y2="508" stroke="#E5E5E5"/>
 
-    <g transform="translate(0 808)" font-family="Noto Sans JP, Hiragino Sans, sans-serif">
-      <line x2="670" stroke="#E5E5E5"/>
-      <rect x="34" y="28" width="602" height="48" rx="7" fill="#0C8CE9"/>
-      <text x="335" y="59" text-anchor="middle" fill="white" font-size="16" font-weight="700">選択した1フレームを書き出す</text>
+      <circle cx="48" cy="538" r="4" fill="#132BDD"/>
+      <text x="62" y="542" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700">onsen</text>
+      <text x="62" y="560" fill="#737373" font-family="Inter, Arial, sans-serif" font-size="10">https://example.com/maps/onsen/</text>
+      <rect x="542" y="523" width="68" height="28" rx="5" fill="#EEF0FF"/>
+      <text x="576" y="541" text-anchor="middle" fill="#132BDD" font-size="10" font-weight="700">URL</text>
+      <rect x="614" y="523" width="70" height="28" rx="5" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="649" y="541" text-anchor="middle" fill="#737373" font-size="10">アンカー</text>
+      <line x1="30" y1="578" x2="700" y2="578" stroke="#E5E5E5"/>
+
+      <circle cx="48" cy="608" r="4" fill="#D118E5"/>
+      <text x="62" y="612" fill="#171717" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700">access</text>
+      <text x="62" y="630" fill="#737373" font-family="Inter, Arial, sans-serif" font-size="10">#access</text>
+      <rect x="542" y="593" width="68" height="28" rx="5" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="576" y="611" text-anchor="middle" fill="#737373" font-size="10">URL</text>
+      <rect x="614" y="593" width="70" height="28" rx="5" fill="#F8EBFC"/>
+      <text x="649" y="611" text-anchor="middle" fill="#D118E5" font-size="10" font-weight="700">アンカー</text>
+
+      <rect x="30" y="710" width="670" height="54" rx="7" fill="#FFFFFF" stroke="#D4D4D4"/>
+      <rect x="30.5" y="710.5" width="669" height="53" rx="6.5" fill="#F5F5F5"/>
+      <text x="46" y="743" fill="#262626" font-size="13" font-weight="700">フロアマップ</text>
+      <text x="192" y="743" fill="#737373" font-size="11">館内フロアマップ</text>
+      <text x="658" y="743" text-anchor="end" fill="#737373" font-size="11">2件</text>
+      <text x="681" y="743" fill="#737373" font-size="18">›</text>
+
+      <line y1="820" x2="730" y2="820" stroke="#E5E5E5"/>
+      <rect x="30" y="846" width="670" height="48" rx="7" fill="#0D99FF"/>
+      <text x="365" y="876" text-anchor="middle" fill="white" font-size="14" font-weight="700">選択した2フレームを書き出す</text>
     </g>
   </g>
 </svg>

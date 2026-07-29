@@ -37,9 +37,15 @@ function selectedNodes(): readonly SceneNode[] {
 function sendSelectionState(): void {
   const selection = selectedNodes();
   const baseUrl = getBaseUrl();
-  const links: Array<{ nodeId: string; frameName: string; url: string; kind: LinkKind }> = [];
+  const groups: Array<{
+    nodeId: string;
+    frameName: string;
+    svgLabel: string;
+    links: Array<{ nodeId: string; frameName: string; url: string; kind: LinkKind }>;
+  }> = [];
   let requiresBaseUrl = false;
   selection.forEach((root) => {
+    const links: Array<{ nodeId: string; frameName: string; url: string; kind: LinkKind }> = [];
     walk(root, (node) => {
       const link = parseLinkNode(node);
       if (link) {
@@ -52,16 +58,21 @@ function sendSelectionState(): void {
         });
       }
     });
+    groups.push({
+      nodeId: root.id,
+      frameName: root.name,
+      svgLabel: root.getPluginData(SVG_LABEL_KEY),
+      links,
+    });
   });
 
   figma.ui.postMessage({
     type: 'selection-state',
     count: selection.length,
     names: selection.slice(0, 3).map((node) => node.name),
-    links,
+    groups,
     baseUrl,
     requiresBaseUrl,
-    svgLabels: selection.map((node) => ({ nodeId: node.id, label: node.getPluginData(SVG_LABEL_KEY) })),
   });
 }
 
